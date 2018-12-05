@@ -1,0 +1,19 @@
+{
+  "name": "hyper-threading-example",
+  "version": "1.0.0",
+  "description": "Examples of hyper-threading",
+  "main": "index.js",
+  "scripts": {
+    "badExample": "node CodeSamples/badExample.js",
+    "complexExample": "node CodeSamples/complexExample.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neliades/hyper-threading-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cluster": "^0.7.7"
+  }
+}
