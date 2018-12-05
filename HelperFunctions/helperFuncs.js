@@ -7,4 +7,10 @@ let reformatTime = (total) => {
     return `${m}m : ${s}s : ${ms}ms`
 }
 
+let goodbye = (index) => {
+    let arr = [`Goodbye`, `Shutting down`, `This worker has been terminated.`, `Mr. Stark, I don't feel so good...`]
+    return `worker #${index}: ${arr[index]}`;
+}
+
 module.exports.reformatTime = reformatTime;
+module.exports.goodbye = goodbye;

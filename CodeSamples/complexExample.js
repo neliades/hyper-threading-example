@@ -13,13 +13,15 @@ let oneBillion = 1000000000;
 let threeBillion = oneBillion * 3;
 let oneHundredMillion = oneBillion / 10;
 let workerNum;
+let count = 0;
 
 //============================================================================
 //function that iterates a billion times, starting from the 
 //============================================================================
 let countToBillion = (start, end) => {
     //iterate from this worker's start and end
-    for (let i = start + 1; i < end; i++) {
+    for (let i = start + 1; i < end + 1; i++) {
+      count++
       /*
       //>>>>>>>>>>>>>
       //if you want to watch each worker count simultaneously, uncomment the section
@@ -29,13 +31,11 @@ let countToBillion = (start, end) => {
       }
       */
     }
-    //record end time and log the elapsed time
-    let endTime = Date.now();
-    let timeElapsed = endTime - startTime;
-    //inform the master that the worker's job is done and send the time
+
+    //inform the master that the worker's job is done and send the count
     process.send({
         stop: 'stop',
-        timeElapsed
+        count
     });
     //kill the worker
     process.kill(process.pid, 'SIGKILL');
@@ -50,10 +50,10 @@ if (cluster.isWorker) {
   //listen for a message from the master
   process.on('message', (msg) => {
     workerNum = msg.num;
-    console.log(`worker #${workerNum} running on thread #${process.pid} initiated`);
+    //console.log(`worker #${workerNum} running on thread #${process.pid} initiated`);
     //if the master sent the worker number, the start value, and the end value
     if (msg.num !== undefined && msg.start !== undefined && msg.end !== undefined) {
-      console.log(`worker #${msg.num} starting count at ` + msg.start);
+      //console.log(`worker #${msg.num} starting count at ` + msg.start);
       //invoke the count using the provided start and end values
       countToBillion(msg.start, msg.end);
     }
@@ -93,9 +93,16 @@ if (cluster.isWorker) {
       if (msg.stop !== undefined) {
         //the worker has been killed - decrease the worker count
         workers--;
+        //add the worker's count to the total count
+        count += msg.count;
         //if ALL workers have been killed, we're done! use the count that this last worker sent in its dying breath and log the elapsed time!
         if (workers === 0) {
-          console.log('Total Time: ' + reformatTime(msg.timeElapsed));
+          let endTime = Date.now();
+          let timeElapsed = endTime - startTime;
+          console.log()
+          console.log('===========================')
+          console.log('Count Total: ' + count);
+          console.log('Total Time: ' + reformatTime(timeElapsed));
         }
       }
     })

@@ -4,8 +4,10 @@
   "description": "Examples of hyper-threading",
   "main": "index.js",
   "scripts": {
-    "badExample": "node CodeSamples/badExample.js",
-    "complexExample": "node CodeSamples/complexExample.js"
+    "vanilla": "node CodeSamples/badExample.js",
+    "complex": "node CodeSamples/complexExample.js",
+    "cluster": "node CodeSamples/clusterExample.js",
+    "messages": "node CodeSamples/messagesExample.js"
   },
   "repository": {
     "type": "git",
