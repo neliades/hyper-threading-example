@@ -4,12 +4,16 @@ This repository will demonstrate the use of multi- / hyper- threading.
 After cloning, run npm install within the repository.
 
 You can test out the various files by running these scripts:
+
 //a basic cluster example:
   npm run cluster
+  
 //a basic cluster example with messages sent between master and workers:
   npm run messages
+  
 //a basic vanilla javascript, single threaded example that tracks the time it takes to count to one billion
   npm run vanilla
+  
 //a complex cluster, multi-threaded example that tracks the time it takes to count to one billion
   npm run complex
   
